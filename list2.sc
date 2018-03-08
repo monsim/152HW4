@@ -1,4 +1,5 @@
 // questions 1, 2, 3, 4
+import scala.collection.mutable.ListBuffer
 
 object list2 {
   println("Welcome to the Scala worksheet")
@@ -28,7 +29,7 @@ object list2 {
   }
   def overSeventy(x: Double) = x >= 70
  
-  
+  	
   passing(cs152)
   
   def sumSums(scores: List[List[Double]]):Double = {
@@ -47,9 +48,57 @@ object list2 {
     
   //2
   def spellCheck(doc: List[String], dictionary: List[String]): List[String] = {
+  		var notInDict = new ListBuffer[String]
+  		for (f <- doc) {
+  			if (!dictionary.contains(f)) notInDict += f	//not in dictionary, add to list
+  		}
+  		notInDict.toList
+  }
+    
+  spellCheck(List("hmm", "is", "this", "in", "it"), List("in", "it"))
+    
+    
+  //3 FINISH
+  def spellCheckM(doc: List[String], dictionary: List[String]): List[String] = {
   		//use a filter to figure out what's not in dictionary
-  		doc.filter(isInDict _)
+  		doc.filter(isInDict)
   }
   
-  def isInDict(doc: List[String], dictionary: List[String]): List
+  def isInDict(doc: List[String], dictionary: List[String]): Boolean = {
+  		var isIn = true
+  		for (f <- doc) {
+  			if(!dictionary.contains(f)) isIn = false
+  		}
+  		isIn
+  }
+  
+  
+  
+  //4
+ 	def evalMono(mono: (Double, Double), x: Double): Double = {
+ 		val power = mono._2
+ 		val coeff = mono._1
+ 		scala.math.pow(x, power)*coeff
+ 	}
+ 	
+ 	evalMono((3,2),2)
+ 	evalMono((2,3),2)
+ 	evalMono((4,1),2)
+ 	
+ 	
+ 	def evalPoly(poly: List[(Double, Double)], x: Double):Double = {
+ 		var total = 0.0;
+ 		for (f <- poly) {
+ 			total += evalMono(f, x)
+ 		}
+ 		total
+ 	}
+ 	evalPoly(List((3,2),(2,3),(4,1)),2)
+ 	//12 + 16 + 8
+ 	
+ 	
+ 	
+ 	
+ 	
+  
 }
